@@ -1,0 +1,21 @@
+#octo {
+	margin-left: 300px;
+	margin-top: 80px;
+	z-index: 1;
+	position: absolute;
+	display: block;
+}
+
+#hat {
+	position: absolute;
+	margin-left: 280px;
+	z-index: 3;
+	
+}
+
+#glasses {
+	position: absolute;
+	margin-top: 180px;
+	margin-left: 340px;
+	z-index: 2;
+}
