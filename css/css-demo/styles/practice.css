@@ -1,0 +1,22 @@
+section#contact-info p {
+	font-size: .8em;
+}
+
+.job {
+	background: #e9e5dc;
+	border-radius: 5px;
+	padding: 5px 20px;
+	margin-top: 10px;
+}
+
+.job-descriptions{
+	font-size: .8em;
+}
+
+h1:hover {
+    color: #FF00FF;
+}
+
+section.job > h3 {
+	background: white;
+}
