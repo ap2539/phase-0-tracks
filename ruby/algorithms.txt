@@ -1,0 +1,19 @@
+Make a robot do my bidding by pushing an elevator button
+- Decide destination floor
+- For each numbered button in the elevator:
+	- Validate if it equals your destination floor
+	- If the current numbered elevator button equals your destination floor then push the current numbered elevator button
+	- If the current numbered elevator button does not equal your destination floor then move to the next numbered eleveator button
+-Once the destination floor is reached exit the elevator
+
+Feed our new robot overlords pasta
+-Fill pot with water
+-Place filled pot o stove top
+-Turn up heat
+-Until water is boiling
+	-Check if water is boiling
+-After water is boiling drop pasta into water
+-Until noodle sticks to wall
+	-Remove 1 noodle from pot and fling at the wall
+-Drain water
+-Serve pasta
