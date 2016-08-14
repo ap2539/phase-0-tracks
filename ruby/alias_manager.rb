@@ -19,6 +19,11 @@
 	#return the updated array
 #print the modified name
 
+
+# =============================================================================
+#      Method Declarations
+# =============================================================================
+
 #checks the vowel string for matches moves the index to the next letter and returns it
 def get_next_vowel (vowel_letter)
 	vowels = "aeiou"
@@ -68,7 +73,7 @@ def condense_array (letter_array)
 
 end
 
-#cycles through an array of letters and chnages them based on if vowel or not
+#cycles through an array of letters and changes them based on if vowel or not
 def translate_letters (array_of_letters)
 	array_of_letters.map! do |letter|
 		if check_if_vowel(letter)
@@ -89,8 +94,35 @@ def get_alias (agent_name_array)
 	 condense_array(agent_name_array.reverse!)
 end
 
-agent_name = "alex perez"
-p get_alias(agent_name)
+#Display a message and return user input
+def get_input(prompt)
+	puts prompt
+	gets.chomp
+end
+
+# =============================================================================
+#      User Interface Code
+# =============================================================================
+agent_name = ""
+agent_hash = {}
+
+#gather user input and modify the agent name
+#improvement possibilities
+#1)modify the code to properly accept capital letters currently can not handle capital letters
+#2)look into regular expressions to check if special characters are entered
+
+until agent_name.downcase == 'quit'
+	agent_name = get_input("Enter employee name? Type 'quit' to end").downcase
+	agent_modified_name = get_alias(agent_name)
+	if agent_name.downcase != 'quit'
+		p "Tranlating #{agent_name} to #{agent_modified_name}"
+		agent_hash.store(agent_name.to_sym, agent_modified_name)
+	end
+end
+
+agent_hash.each do |agent_symbol, agent_modified|
+	p agent_symbol.to_s + " translates to " + agent_modified	
+end
 
 
 
