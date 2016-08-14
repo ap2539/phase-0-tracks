@@ -19,3 +19,45 @@
 	#return the updated array
 #print the modified name
 
+def get_next_vowel (vowel_letter)
+	vowels = "aeiou"
+	vowel_index = vowels.index(vowel_letter) + 1
+	if vowel_index == 5
+		vowel_index = 0
+	end
+
+	vowel_letter = vowels[vowel_index]
+
+end
+
+def get_next_con (consonant_letter)
+	consonants = "bcdfghjklmnpqrstvwxyz"
+	consonant_index = consonants.index(consonant_letter) + 1
+	if consonant_index == 21
+		consonant_index = 0
+	end
+
+	consonant_letter = consonants[consonant_index]
+
+end
+
+def check_if_vowel (letter)
+	vowels = ['a','e','i','o','u']
+	return vowels.include? letter
+	
+end
+
+
+agent_name = "celeste"
+agent_name_letters = agent_name.chars
+
+agent_name_letters.each do |letter|
+	if check_if_vowel(letter)
+		p get_next_vowel(letter)
+	else
+		p get_next_con(letter)
+	end
+end
+
+
+
