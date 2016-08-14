@@ -19,6 +19,7 @@
 	#return the updated array
 #print the modified name
 
+#checks the vowel string for matches moves the index to the next letter and returns it
 def get_next_vowel (vowel_letter)
 	vowels = "aeiou"
 	vowel_index = vowels.index(vowel_letter) + 1
@@ -30,6 +31,7 @@ def get_next_vowel (vowel_letter)
 
 end
 
+#checks the consonant string for matches moves the index to the next letter and returns it
 def get_next_con (consonant_letter)
 	consonants = "bcdfghjklmnpqrstvwxyz"
 	consonant_index = consonants.index(consonant_letter) + 1
@@ -41,23 +43,56 @@ def get_next_con (consonant_letter)
 
 end
 
+#checks if the letter is a vowel and returns true or false
 def check_if_vowel (letter)
 	vowels = ['a','e','i','o','u']
 	return vowels.include? letter
 	
 end
 
+#create an array of letters within the array to keep the names contained
+def get_letters (string_array)
+	new_string_array = []
+	string_array.each do | str_name|
+		new_string_array.push(str_name.chars)
+	end
+	return new_string_array
+end
 
-agent_name = "celeste"
-agent_name_letters = agent_name.chars
+#condense the letter array back to string array then back to a string
+def condense_array (letter_array)
+	letter_array.map! do |name_letter_array|
+		name_letter_array.join
+	end
+	letter_array.join(' ')
 
-agent_name_letters.each do |letter|
-	if check_if_vowel(letter)
-		p get_next_vowel(letter)
-	else
-		p get_next_con(letter)
+end
+
+#cycles through an array of letters and chnages them based on if vowel or not
+def translate_letters (array_of_letters)
+	array_of_letters.map! do |letter|
+		if check_if_vowel(letter)
+			letter = get_next_vowel(letter)
+		else
+			letter = get_next_con(letter)
+		end
 	end
 end
+
+#main logic - break down the array to letters translate letters condense the array back to letters then return a reversed split array
+def get_alias (agent_name_array)
+	agent_name_array = get_letters(agent_name_array.split)
+
+	agent_name_array.map! do |agent_name|
+		translate_letters(agent_name)
+	end
+	 condense_array(agent_name_array.reverse!)
+end
+
+agent_name = "alex perez"
+p get_alias(agent_name)
+
+
 
 
 
