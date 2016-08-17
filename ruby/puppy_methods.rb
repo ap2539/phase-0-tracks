@@ -7,3 +7,6 @@ class Puppy
 
 end
 
+pixel = Puppy.new
+pixel.fetch("ball")
+
