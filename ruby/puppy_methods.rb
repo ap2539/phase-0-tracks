@@ -11,10 +11,16 @@ class Puppy
   	end
   end
 
+  def roll_over
+  	puts "*rolls over*"
+  end
+
 end
 
 pixel = Puppy.new
 pixel.fetch("ball")
 
 pixel.speak(2)
+
+pixel.roll_over
 
