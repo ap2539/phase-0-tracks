@@ -19,6 +19,12 @@ class Puppy
   	dog_years = human_years * 7  	
   end
 
+  def cutness_overload
+  	puts "  __      _"
+  	puts "o'')}____//"
+  	puts " `_/      )"
+  	puts " (_(_/-(_/"
+  end
 end
 
 #create new puppy instance
@@ -37,3 +43,6 @@ pixel.roll_over
 human_years = 2
 dog_years = pixel.dog_years(human_years)
 puts dog_years
+
+pixel.cutness_overload
+
