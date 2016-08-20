@@ -45,6 +45,24 @@ class Pokemon
 		puts "#{@pokemon_name} I choose you!"
 	end
 
+	def attack
+		puts "#{@pokemon_name} attacked using #{@moves[rand(4)]}!!"
+	end
+
+	def level_up
+		@level += 1
+	end
+
+	def change_move(old_move,new_move)
+		if @moves.include? old_move
+			@moves.delete(old_move)
+			@moves.push(new_move)
+			return true
+		else
+			return false
+		end
+	end
+	
 	def display_stats
 		puts "Pokemon Name: #{@pokemon_name}"
 		puts "Level: #{@level}"
@@ -64,3 +82,10 @@ level = 20
 pikachu = Pokemon.new(name,moves,level)
 
 pikachu.display_stats
+pikachu.attack
+pikachu.level_up
+pikachu.level_up
+pikachu.display_stats
+pikachu.change_move("Electroball","Thunder")
+pikachu.display_stats
+
