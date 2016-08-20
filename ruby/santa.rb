@@ -32,19 +32,41 @@ class Santa
 	end
 end
 
-mr_clause = Santa.new("Male", "Hispanic")
-mr_clause.speak
-mr_clause.eat_milk_and_cookies("chocolate chip cookie")
-mr_clause.get_mad_at("Rudolph")
-mr_clause.gender = "Female"
-p mr_clause.gender
-mr_clause.celebrate_birthday
-p mr_clause.age
-p mr_clause.ethnicity
+#mr_clause = Santa.new("Male", "Hispanic")
+#mr_clause.speak
+#mr_clause.eat_milk_and_cookies("chocolate chip cookie")
+#mr_clause.get_mad_at("Rudolph")
+#mr_clause.gender = "Female"
+#p mr_clause.gender
+#mr_clause.celebrate_birthday
+#p mr_clause.age
+#p mr_clause.ethnicity
 
+#santas = []
+#example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A", "male"]
+#example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A", "hispanic"]
+#example_genders.length.times do |i|
+#  santas << Santa.new(example_genders[i], example_ethnicities[i])
+#end
+
+#intialize the arrays to be used later, populate age and ethinicty here
 santas = []
-example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A", "male"]
-example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A", "hispanic"]
-example_genders.length.times do |i|
-  santas << Santa.new(example_genders[i], example_ethnicities[i])
+genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A", "male"]
+ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A", "hispanic"]
+
+#loop to create any numer of santas
+100.times do |i|
+
+	#store the Santas in the santas array and randomly choose gender and ethnicity
+	santas << Santa.new(genders.sample, ethnicities.sample)
+
+	#Can't directly change age so celebrate the current santas birthday N times to update age
+	rand(140).times do
+		santas[i].celebrate_birthday
+	end
+	
+	#print section
+	puts "Santa number #{i + 1} is #{santas[i].age} years old"
+	puts "Santa number #{i + 1}'s ethnicity is #{santas[i].ethnicity}"
+	puts "Santa number #{i + 1}'s gender is #{santas[i].gender}"
 end
