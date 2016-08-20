@@ -1,4 +1,7 @@
 class Santa
+	attr_reader :age, :ethnicity
+	attr_accessor :gender
+
 	def initialize (gender, ethnicity)
 		puts "Initializing Santa instance ..."
 		@gender = gender
@@ -27,18 +30,6 @@ class Santa
 			puts "Reindeer does not exist"
 		end
 	end
-
-	def gender=(new_gender)
-		@gender = new_gender
-	end 
-
-	def age
-		@age
-	end
-
-	def ethnicity
-		@ethnicity
-	end
 end
 
 mr_clause = Santa.new("Male", "Hispanic")
@@ -46,6 +37,7 @@ mr_clause.speak
 mr_clause.eat_milk_and_cookies("chocolate chip cookie")
 mr_clause.get_mad_at("Rudolph")
 mr_clause.gender = "Female"
+p mr_clause.gender
 mr_clause.celebrate_birthday
 p mr_clause.age
 p mr_clause.ethnicity
