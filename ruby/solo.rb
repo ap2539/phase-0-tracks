@@ -27,6 +27,12 @@
 	#Steps: ELSE return false
 
 	#Method: Display Stats
+	#Input: none
+	#Steps: PRINT "Pokemon name: #{pokemon_name}"
+	#Steps: PRINT "Level: #{level}"
+	#Steps: FOR EACH item in the moves array |i|
+	#Steps: 	PRINT "Move #{i} - #{moves[i]}"
+	#Output: Print to screen
 
 class Pokemon
 	attr_reader :moves, :level
