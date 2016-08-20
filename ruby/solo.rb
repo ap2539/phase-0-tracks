@@ -26,12 +26,27 @@
 	#Steps: THEN insert new move into the array
 	#Steps: ELSE return false
 
+	#Method: Display Stats
+
 class Pokemon
-	def intialize (pokemon_name, moves, level)
+	attr_reader :moves, :level
+	attr_accessor :pokemon_name
+
+	def initialize (pokemon_name, moves, level)
 		@pokemon_name = pokemon_name
 		@moves = moves
 		@level = level
 		puts "#{@pokemon_name} I choose you!"
 	end
-
 end
+
+name = "Pikachu"
+moves = ["Electroball", "Quick Attack", "Iron Tail", "Thunder Bolt"]
+level = 20
+
+
+pikachu = Pokemon.new(name,moves,level)
+
+p pikachu.moves
+p pikachu.level
+p pikachu.pokemon_name
