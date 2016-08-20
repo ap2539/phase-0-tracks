@@ -44,6 +44,16 @@ class Pokemon
 		@level = level
 		puts "#{@pokemon_name} I choose you!"
 	end
+
+	def display_stats
+		puts "Pokemon Name: #{@pokemon_name}"
+		puts "Level: #{@level}"
+		i=1
+		@moves.each do |move|
+			puts "Move ##{i} - #{move}"
+			i+=1
+		end
+	end
 end
 
 name = "Pikachu"
@@ -53,6 +63,4 @@ level = 20
 
 pikachu = Pokemon.new(name,moves,level)
 
-p pikachu.moves
-p pikachu.level
-p pikachu.pokemon_name
+pikachu.display_stats
