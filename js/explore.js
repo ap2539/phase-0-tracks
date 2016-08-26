@@ -22,19 +22,20 @@ function reverseString(inputString) {
 
 //driver code
 var driverString = "This is a test";
+var printString = "";
 
 //true case test
 if (1==1) {
-var driverString = reverseString(driverString);
+	printString = reverseString(driverString);
 }
 
 //false case test
-if (1==2) {
-var driverString = reverseString(driverString);
-}
+//if (1==2) {
+//	printString = reverseString(driverString);
+//}
 
 //print the results
-console.log(driverString);
+console.log(printString);
 
 
 
