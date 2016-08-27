@@ -1,5 +1,10 @@
 #population density is number of people per square mile as of 2012
 #this data is updated every year with estimates from a 10 year census
+#state_data - local
+#@state_data - instance
+#@@state_data - class
+#$state_data - global
+#STATE_DATA - Constant
 
 
 STATE_DATA = {
