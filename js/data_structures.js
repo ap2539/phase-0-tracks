@@ -34,3 +34,7 @@ function Car(model, year, maintenance) {
 var car = new Car("Accord", 2016, true);
 car.fix_car();
 console.log(car);
+
+var car2 = new Car("Optima", 2012, false);
+car2.fix_car();
+console.log(car2);
