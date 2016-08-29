@@ -1,3 +1,6 @@
+//======================================================================
+//Psuedocode
+//======================================================================
 //method: get_longest
 //input: takes an array of strings
 //steps: intialize longestIndex variable to store the index of the longest length string, default to 0
@@ -18,13 +21,27 @@
 		//Steps: set match = true
 //output: boolean
 
-//method: random_word
+//method: random_array
 //input: integer -> array size
 //Steps: for each value in array size
-	//push and random word to new array
+	//push random word to new array
 //output: new array
 
+//method: random_word
+//steps: select a random number between 1-10 to create the word length
+//steps: create a blank string
+//steps: while index is less than word length 
+	//steps: push add a random letter to the string
+//output: string
 
+//method: random_letter
+//steps: intialize an aplhabet string with all letters of the alphabet
+//steps: select a random number up to 26
+//output: the letter for the randomly chosen index of alphabet
+
+//======================================================================
+//Functions
+//======================================================================
 function get_longest(phraseArray) {
 	var longestIndex = 0;
 	for (var i = 0; i < phraseArray.length; i++) {
@@ -57,6 +74,35 @@ function does_match(first_hash,second_hash) {
 	return match;
 }
 
+function random_letter() {
+	var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+	return alphabet[Math.floor((Math.random() * 26))]
+
+}
+
+function random_word() {
+    var rand_word = "";
+    var word_length = Math.floor((Math.random() * 10) + 1);
+    
+    for (var i = 0; i < word_length; i++ ){
+      rand_word += random_letter();
+    }
+
+    return rand_word;
+}
+
+function random_array(array_length) {
+	var new_array = new Array();
+	for (i=0; i < array_length; i++) {
+		new_array.push(random_word());
+	}
+	return new_array;
+}
+
+//======================================================================
+//Driver Code
+//======================================================================
+
 var array_of_phrases = ["long phrase", "long phrase","long phrase","longest phrase","longer phrase"];
 console.log(get_longest(array_of_phrases));
 
@@ -74,4 +120,15 @@ hash_of_data = {name: "Steven", age: 20};
 hash_of_data2 = {name: "Alex", age: 54};
 console.log(does_match(hash_of_data,hash_of_data2));
 
-var int = 20;
+console.log(random_array(10));
+
+//Driver loop to generate an array of random length
+//print that array
+//then print the longest word in that array
+for (var x=0; x < 11; x++) {
+	console.log("Array #" + x + "===========================")
+	current_array = random_array(Math.floor((Math.random() * 10) + 1));
+	console.log(current_array);
+	console.log("The longest word is ... " + get_longest(current_array));
+}
+
