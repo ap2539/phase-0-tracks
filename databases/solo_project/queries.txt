@@ -1,0 +1,157 @@
+
+/* Queries =========================== */
+
+/* ---------Query #1--------- */
+Select * from Customers;
+
+/* ---Results--- */
+300|Shayne|Lacy|123 Fake St.|Fake City
+301|Balze|Cleveland|456 Fake Pl.|Unfamilar Town
+302|Audrey|Anita|789 Fake Ave.|Strange Village
+303|Jenny|Lane|424 Fake CT.|Distant Land
+
+
+/* ---------Query #2--------- */
+UPDATE Orders
+SET expediate = "True"
+WHERE cust_id = 302;
+
+
+/* ---------Query #3--------- */
+SELECT * 
+FROM Customers, Orders
+WHERE Customers.customer_id = Orders.cust_id;
+
+/* ---Results--- */
+300|Shayne|Lacy|123 Fake St.|Fake City|1000|300|False
+300|Shayne|Lacy|123 Fake St.|Fake City|1001|300|True
+302|Audrey|Anita|789 Fake Ave.|Strange Village|1002|302|True
+303|Jenny|Lane|424 Fake CT.|Distant Land|1003|303|False
+302|Audrey|Anita|789 Fake Ave.|Strange Village|1004|302|True
+303|Jenny|Lane|424 Fake CT.|Distant Land|1005|303|False
+
+
+/* ---------Query #4--------- */
+/* Display the order_id, customer, and total price for all orders */
+SELECT o.order_id, c.cust_first_name, c.cust_last_name, sum(i.price * ol.qty)
+FROM Customers c, Orders o, OrderLines ol, items i
+WHERE c.customer_id = o.cust_id
+AND o.order_id = ol.order_id
+AND ol.item_id = i.item_id
+GROUP BY ol.order_id;
+
+/* ---Results--- */
+1000|Shayne|Lacy|789.99
+1001|Shayne|Lacy|201.97
+1002|Audrey|Anita|77.99
+1003|Jenny|Lane|974.98
+1004|Audrey|Anita|32.99
+1005|Jenny|Lane|35
+
+
+/* ---------Query #5--------- */
+DELETE FROM OrderLines
+Where order_line_id = 2008;
+
+
+/* ---------Query #6--------- */
+/*Displays information for all customers and 
+displays no order information when user has no orders*/
+
+SELECT *
+FROM Customers c
+LEFT JOIN Orders o
+on c.customer_id = o.cust_id;
+
+/* ---Results--- */
+300|Shayne|Lacy|123 Fake St.|Fake City|1000|300|False
+300|Shayne|Lacy|123 Fake St.|Fake City|1001|300|True
+301|Balze|Cleveland|456 Fake Pl.|Unfamilar Town|||
+302|Audrey|Anita|789 Fake Ave.|Strange Village|1002|302|True
+302|Audrey|Anita|789 Fake Ave.|Strange Village|1004|302|True
+303|Jenny|Lane|424 Fake CT.|Distant Land|1003|303|False
+303|Jenny|Lane|424 Fake CT.|Distant Land|1005|303|False
+
+
+/* ---------Query #7--------- */
+/* Display the total qty for all items currently on order */
+SELECT i.item_description, sum(ol.qty)
+FROM items i 
+JOIN OrderLines ol
+ON i.item_id = ol.item_id
+GROUP BY ol.item_id;
+
+/* ---Results---*/
+Laptop|2
+Mouse|2
+Keyboard|2
+Mouse Pad|2
+Monitor|2
+Speaker|2
+
+
+
+/*Create database tables =========================== */
+CREATE TABLE Items
+("item_id" INTEGER PRIMARY KEY,
+"item_description" VARCHAR(255),
+"price" DECIMAL);
+
+CREATE TABLE Customers
+("customer_id" INTEGER PRIMARY KEY,
+"cust_first_name" VARCHAR(255),
+"cust_last_name" VARCHAR(255),
+"cust_ship_address" VARCHAR(255),
+"cust_ship_city" VARCHAR(255));
+
+CREATE TABLE Orders
+("order_id" INTEGER PRIMARY KEY,
+"cust_id" INTEGER,
+"expediate" BOOLEAN,
+FOREIGN KEY (cust_id) REFERENCES Customers(cust_id));
+
+CREATE TABLE OrderLines
+("order_line_id" INTEGER PRIMARY KEY,
+"order_id" INTEGER,
+"item_id" INTEGER,
+"qty" INTEGER,
+FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+FOREIGN KEY (item_id) REFERENCES Items(item_id));
+
+/*Populate database tables =========================== */
+INSERT INTO Items VALUES
+(200, "Laptop", 789.99),
+(201, "Mouse", 32.99),
+(202, "Keyboard", 35.00),
+(203, "Mouse Pad", 5.00),
+(204, "Monitor", 149.99),
+(205, "Speaker", 25.99);
+
+INSERT INTO Customers VALUES
+(300, "Shayne", "Lacy", "123 Fake St.", "Fake City"),
+(301, "Balze", "Cleveland", "456 Fake Pl.", "Unfamilar Town"),
+(302, "Audrey", "Anita", "789 Fake Ave.", "Strange Village"),
+(303, "Jenny", "Lane", "424 Fake CT.", "Distant Land");
+
+INSERT INTO Orders VALUES
+(1000, 300, "False"),
+(1001, 300, "True"),
+(1002, 302, "False"),
+(1003, 303, "False"),
+(1004, 302, "True"),
+(1005, 303, "False");
+
+INSERT INTO OrderLines VALUES
+(2000, 1000, 200, 1),
+(2001, 1001, 205, 2),
+(2002, 1001, 204, 1),
+(2003, 1002, 201, 1),
+(2004, 1002, 202, 1),
+(2005, 1002, 203, 2),
+(2006, 1003, 200, 1),
+(2007, 1003, 204, 1),
+(2008, 1003, 202, 1),
+(2009, 1004, 201, 1),
+(2010, 1005, 202, 1);
+
+
