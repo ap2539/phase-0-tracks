@@ -26,6 +26,18 @@
 #STEPS: Reload the item_list instance variable
 #OUTPUT: None
 
+#get_price method
+#INPUT: item id as Integer
+#STEPS: for each hash in the item list array
+	#STEPS: if the item ID macthes return the item price
+#OUTPUT: item price as a decimal or false if item not found
+
+#get_item method
+#INPUT: item id as Integer
+#STEPS: for each hash in the item list array
+	#STEPS: if the item ID macthes return the item name
+#OUTPUT: item name as a string or false if item not found
+
 require 'sqlite3'
 
 class Item_list
@@ -57,11 +69,26 @@ class Item_list
 		#reload the lcurrent item list
 		@item_list = @db.execute("SELECT * FROM Items")
 	end
+
+	def get_price(item_id)
+		@item_list.each do |item|
+			return item["price"] if (item["id"] == item_id)
+		end
+		return false
+	end
+
+	def get_item(item_id)
+		@item_list.each do |item|
+			return item["item"] if (item["id"] == item_id)
+		end
+		return false
+	end
 end
 
 #<------- Driver Test Code ------->
-#db = SQLite3::Database.new("store.db")
-#db.results_as_hash = true
-#new_item_list = Item_list.new(db)
+db = SQLite3::Database.new("store.db")
+db.results_as_hash = true
+new_item_list = Item_list.new(db)
 #new_item_list.add_item("Headphones", 19.99)
 #puts (new_item_list.view_list())
+puts new_item_list.get_item(9)
