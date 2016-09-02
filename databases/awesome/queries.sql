@@ -7,8 +7,7 @@ CREATE TABLE Customers
 ("id" INTEGER PRIMARY KEY,
 "cust_first_name" VARCHAR(255),
 "cust_last_name" VARCHAR(255),
-"cust_ship_address" VARCHAR(255),
-"cust_ship_city" VARCHAR(255));
+"cust_username" VARCHAR(255));
 
 CREATE TABLE Orders
 ("id" INTEGER PRIMARY KEY,
@@ -32,3 +31,27 @@ INSERT INTO Items VALUES
 (4, "Mouse Pad", 5.00),
 (5, "Monitor", 149.99),
 (6, "Speaker", 25.99);
+
+INSERT INTO Customers VALUES
+(1, "Alex", "Perez","ap2539"),
+(null, "Balze", "Cleveland","b456"),
+(null, "Audrey", "Anita","aa789"),
+(null, "Jenny", "Lane","jl424");
+
+INSERT INTO Orders VALUES
+(1, 1),
+(2, 1);
+
+INSERT INTO OrderLines VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 1),
+(3, 2, 3, 3),
+(4, 2, 6, 3);
+
+SELECT o.id, c.cust_first_name, c.cust_last_name, sum(i.price * ol.qty)
+FROM Customers c, Orders o, OrderLines ol, items i
+WHERE c.id = o.cust_id
+AND o.id = ol.order_id
+AND ol.item_id = i.id
+GROUP BY ol.order_id;
+

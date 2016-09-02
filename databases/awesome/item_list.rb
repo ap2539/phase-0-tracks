@@ -86,9 +86,9 @@ class Item_list
 end
 
 #<------- Driver Test Code ------->
-db = SQLite3::Database.new("store.db")
-db.results_as_hash = true
-new_item_list = Item_list.new(db)
+#db = SQLite3::Database.new("store.db")
+#db.results_as_hash = true
+#new_item_list = Item_list.new(db)
 #new_item_list.add_item("Headphones", 19.99)
 #puts (new_item_list.view_list())
-puts new_item_list.get_item(9)
+#puts new_item_list.get_item(9)
