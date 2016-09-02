@@ -48,10 +48,14 @@ INSERT INTO OrderLines VALUES
 (3, 2, 3, 3),
 (4, 2, 6, 3);
 
-SELECT o.id, c.cust_first_name, c.cust_last_name, sum(i.price * ol.qty)
-FROM Customers c, Orders o, OrderLines ol, items i
-WHERE c.id = o.cust_id
-AND o.id = ol.order_id
-AND ol.item_id = i.id
-GROUP BY ol.order_id;
+SELECT  i.item, ol.qty, sum(i.price * ol.qty) "Order_line_total"
+FROM OrderLines ol, items i
+WHERE ol.item_id = i.id
+and ol.order_id = 1
+group by ol.order_line_id;
 
+SELECT sum(i.price * ol.qty) "order_total"
+FROM OrderLines ol, items i
+WHERE ol.item_id = i.id
+and ol.order_id = 1
+group by ol.order_id;
