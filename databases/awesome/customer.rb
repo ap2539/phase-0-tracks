@@ -42,7 +42,7 @@ class Customer
 		customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 		customer.each do |cust|
 			if (cust["cust_username"] == username)
-				@customer = customer
+				@customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 				load_user()
 				return true
 			end
@@ -54,12 +54,19 @@ class Customer
 		@db.execute("INSERT INTO Customers VALUES (null, ?, ?, ?)", [first_name, last_name, username])
 		@customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 		load_user()
+
+		return true if (validate_user(username))
+		return false
 	end
 
 	def print_history()
 		output_history = "#{@cust_name}'s Order History:\n"
-		@cart_history.each do |order|
-			output_history += "Order\# #{order["id"]}\n"
+		if @cart_history.size > 0
+			@cart_history.each do |order|
+				output_history += "Order\# #{order["id"]}\n"
+			end
+		else
+			output_history += "\n You have no orders"
 		end
 
 		return output_history
@@ -102,10 +109,11 @@ class Customer
 end
 
 #<------- Driver Test Code ------->
-##db.results_as_hash = true
-#user = Customer.new(db)
+db = SQLite3::Database.new("store.db")
+db.results_as_hash = true
+user = Customer.new(db)
 #user.insert_customertomer("John", "Smith", "js1234")
-#puts user.log_in("ap2539")
+puts user.log_in("adp2539")
 #puts user.cust_id
 #puts user.cust_name
 #puts user.print_history
