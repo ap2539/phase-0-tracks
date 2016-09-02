@@ -1,8 +1,8 @@
 #Item_list class
 
 #intialize method
-#INPUT: an array of arrays
-#STEPS: set array = Instance array
+#INPUT: db connection
+#STEPS: select item table and store it = Instance array
 #OUTPUT: none
 
 #view_list method
@@ -12,21 +12,41 @@
 		#STEPS: Print the item# item description and price for the user
 #OUTPUT: Single string with nicely formatted item list
 
+require 'sqlite3'
+
 class Item_list
-	def initialize(input_list)
+	def initialize(db)
 		#Expected to be an array of hashes
-		@item_list = input_list
+		@db = db
+		@item_list = db.execute("SELECT * FROM Items")
+		puts "done"
 	end
 
 	def view_list()
 		view_list_string = ""
 		@item_list.each do |item|
-			view_list_string += "\##{item["id"]} - #{item["item_name"]} - \$#{item["price"]}\n"
+			view_list_string += "\##{item["id"]} - #{item["item"]} - \$#{item["price"]}\n"
 		end
+
+		initialize(@db)
+
+
 		return view_list_string
 	end
-end
-list = [{"id"=>1,"item_name"=>"Mouse", "price" => 25.99},{"id"=>2,"item_name"=>"Keyboard", "price" => 29.99}]
 
-new_item_list = Item_list.new(list)
+	#search the current array list and if the item id exists return true
+	#else return false 
+	def validate_item(item_id)
+		@item_list.each do |item|
+			return true if (item["id"] == item_id)
+		end
+		return false
+	end
+end
+
+db = SQLite3::Database.new("store.db")
+db.results_as_hash = true
+new_item_list = Item_list.new(db)
 puts (new_item_list.view_list())
+
+puts new_item_list.validate_item(10)
