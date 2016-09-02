@@ -12,6 +12,20 @@
 		#STEPS: Print the item# item description and price for the user
 #OUTPUT: Single string with nicely formatted item list
 
+#validate_item method
+#INPUT: item_id as Integer
+#STEPS: for each hash in the array 
+	#STEPS: check if the the ID matches any of the items
+	#STEPS: If there is a match return true
+#STEPS: if the array search completes with no matches return false
+#OUTPUT: BOOLEAN
+
+#insert_item method
+#INPUT: item name as string, and price as demical
+#STEPS: Use the instance database to excute an insert with name and price
+#STEPS: Reload the item_list instance variable
+#OUTPUT: None
+
 require 'sqlite3'
 
 class Item_list
@@ -19,7 +33,6 @@ class Item_list
 		#Expected to be an array of hashes
 		@db = db
 		@item_list = db.execute("SELECT * FROM Items")
-		puts "done"
 	end
 
 	def view_list()
@@ -27,10 +40,6 @@ class Item_list
 		@item_list.each do |item|
 			view_list_string += "\##{item["id"]} - #{item["item"]} - \$#{item["price"]}\n"
 		end
-
-		initialize(@db)
-
-
 		return view_list_string
 	end
 
@@ -42,11 +51,17 @@ class Item_list
 		end
 		return false
 	end
+
+	def add_item(item_name, price)
+		@db.execute("INSERT INTO Items VALUES(null,?,?)", [item_name, price])
+		#reload the lcurrent item list
+		@item_list = @db.execute("SELECT * FROM Items")
+	end
 end
 
-db = SQLite3::Database.new("store.db")
-db.results_as_hash = true
-new_item_list = Item_list.new(db)
-puts (new_item_list.view_list())
-
-puts new_item_list.validate_item(10)
+#<------- Driver Test Code ------->
+#db = SQLite3::Database.new("store.db")
+#db.results_as_hash = true
+#new_item_list = Item_list.new(db)
+#new_item_list.add_item("Headphones", 19.99)
+#puts (new_item_list.view_list())
