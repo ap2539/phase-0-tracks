@@ -25,27 +25,37 @@ class Customer
 		@customer = nil
 	end
 
-	def load_user(username)
+	def validate_customer(username)
 		customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 		customer.each do |cust|
 			if (cust["cust_username"] == username)
 				@customer = customer
-				@customer.each do |cust|
-					@cust_id = cust["id"]
-					@cust_name = "#{cust["cust_first_name"]} #{cust["cust_last_name"]}"
-				end
+				load_user()
 				return true
 			end
 		end
 		return false
 	end
 
+	def insert_customer(first_name,last_name,username)
+		@db.execute("INSERT INTO Customers VALUES (null, ?, ?, ?)", [first_name, last_name, username])
+		@customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
+		load_user()
+	end
 
+	private
+	def load_user()
+		@customer.each do |cust|
+			@cust_id = cust["id"]
+			@cust_name = "#{cust["cust_first_name"]} #{cust["cust_last_name"]}"
+		end
+	end
 end
 
 db = SQLite3::Database.new("store.db")
 db.results_as_hash = true
 user = Customer.new(db)
-puts user.load_user("ap2539")
+#user.insert_customertomer("John", "Smith", "js1234")
+puts user.validate_customer("js1234")
 puts user.cust_id
 puts user.cust_name
