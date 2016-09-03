@@ -38,6 +38,16 @@ class Customer
 		@current_order = "null"
 	end
 
+	def valid_user(username)
+		customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
+		customer.each do |cust|
+			if (cust["cust_username"] == username)
+				return true
+			end
+		end
+		return false
+	end
+
 	def log_in(username)
 		customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 		customer.each do |cust|
@@ -55,7 +65,7 @@ class Customer
 		@customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 		load_user()
 
-		return true if (validate_user(username))
+		return true if (valid_user(username))
 		return false
 	end
 

@@ -45,10 +45,29 @@ class Cart
 		end
 	end
 
+	def add_to_cart(item, qty)
+		insert_item_query = "INSERT INTO orderlines VALUES (null, ?, ?, ?)"
+		@db.execute(insert_item_query,[@customer.current_order,item,qty])
+		update_cart()
+	end
+
+	def in_cart(item)
+		if @cart.size == 0
+			return false
+		else
+			@cart.each do |cart_line|
+				if cart_line["item_id"] == item
+					return true
+				end
+			end
+			return false
+		end
+	end
+
 	private
 	def update_cart()
 		order_line_query = <<-SQL
-			SELECT  i.item, ol.qty, sum(i.price * ol.qty) "order_line_total"
+			SELECT  i.item, ol.qty, ol.item_id, round(sum(i.price * ol.qty),2) "order_line_total"
 			FROM OrderLines ol, items i
 			WHERE ol.item_id = i.id
 			and ol.order_id = ?
@@ -56,7 +75,7 @@ class Cart
 		SQL
 		@cart = @db.execute(order_line_query, [@customer.current_order])
 
-		if cart.size > 0 
+		if @cart.size > 0 
 			order_total_query = <<-SQL
 				SELECT sum(i.price * ol.qty) "order_total"
 				FROM OrderLines ol, items i
@@ -77,6 +96,8 @@ end
 #db.results_as_hash = true
 #user = Customer.new(db)
 #user.log_in("ap2539")
-#user.set_order(1)
+#user.set_order(2)
 #customer_cart = Cart.new(db,user)
+#puts customer_cart.print_cart()
+#customer_cart.add_to_cart(4, 2)
 #puts customer_cart.print_cart()
