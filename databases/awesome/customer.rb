@@ -64,7 +64,6 @@ class Customer
 		@db.execute("INSERT INTO Customers VALUES (null, ?, ?, ?)", [first_name, last_name, username])
 		@customer = @db.execute("SELECT * FROM Customers where cust_username = ? " , [username])
 		load_user()
-
 		return true if (valid_user(username))
 		return false
 	end

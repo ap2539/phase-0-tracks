@@ -50,7 +50,7 @@ class Item_list
 	def view_list()
 		view_list_string = ""
 		@item_list.each do |item|
-			view_list_string += "\##{item["id"]} - #{item["item"]} - \$#{item["price"]}\n"
+			view_list_string += "\t#{item["id"]} - #{item["item"]} - \$#{item["price"]}\n"
 		end
 		return view_list_string
 	end

@@ -123,17 +123,16 @@ until user_is_done
 	
 	
 
-	puts "\nWhat would you like to do?"
-	puts "1 - Add to cart"
-	puts "2 - Change cart"
-	puts "3 - Check out"
+	puts "\n\tWhat would you like to do?"
+	puts "\t1 - Add to cart"
+	puts "\t2 - Change cart"
+	puts "\t3 - Check out"
 	user_input = gets.chomp.to_i
 
 
 	case 
 		when user_input == 1
 			add_item(db,cart)
-			cart = Cart.new(db, customer)
 			puts cart.print_cart()
 		when user_input == 2
 			start_order(customer)
