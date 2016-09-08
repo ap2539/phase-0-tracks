@@ -1,0 +1,8 @@
+## What are some design philosophies of the Linux operating system?
+* One of the philosophies of linux is to be as simple as possible. As the time of development there was no standardization for computers and user interfaces were needlessly complex. Computers of the time had unique operating systems per hardware set up. The Unix operating system was developed with this in mind and was built to be as simple and as efficient as possible. With its philosphy in mind it was able to be utilized by a varierty of computer hardware set ups.
+
+## In your own words, what is a VPS (virtual private server)? What, according to your research, are the advantages of using a VPS?
+* A virtual private server is an independant server that is run off a physical server. That is to say a VPS is a server itself running within the memory of a physical server. This makes a VPS more accesible to the average user who might not be able to obtain a physical server. 
+
+## Why is it considered a bad idea to run programs as the root user on a linux system?
+* The root user has the highest privleges availabe to the linux operating system (unless otherwise removed). It best not to run applications as root because those applications may have security holes that can grant access to the system. If the application is running as root the hole then grant access to the whole system. Its best to delgate priveliges to non root users and run applications as those users to help secure the system from potential threat.
