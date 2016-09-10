@@ -44,3 +44,33 @@ get '/students/:id' do
   student = db.execute("SELECT * FROM students WHERE id=?", [params[:id]])[0]
   student.to_s
 end
+
+get '/contact' do
+  "123 Fake St. Seattle, WA"
+end
+
+get '/great_job' do
+  if params[:name]
+    "Good job #{params[:name]}!"
+  else
+    "Good job!"
+  end
+end
+
+get '/:num1/:num2' do
+  "#{params[:num1]} PLUS #{params[:num2]} EQUALS #{params[:num1].to_i+params[:num2].to_i}"
+end
+
+get '/:name' do
+  name = "%#{params[:name]}%"
+  student = db.execute("SELECT * FROM students where name like ? ", [name])
+  student.to_s
+end
+
+
+
+
+
+
+
+
