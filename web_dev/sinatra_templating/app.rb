@@ -25,3 +25,14 @@ post '/students' do
 end
 
 # add static resources
+
+get '/locations' do
+	@locations = db.execute('SELECT campus_name from locations')
+	erb :locations
+end
+
+post '/locations' do
+	p params
+	db.execute("INSERT INTO locations VALUES (?,?)", [params['campus_abbr'], params['campus']])
+	redirect '/locations'
+end 
