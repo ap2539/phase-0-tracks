@@ -1,0 +1,23 @@
+
+<html>
+<head>
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Campus Information</h1>
+    <p>Current campus locations</p>
+    <p><a href="/">Back</a></p>
+  <ul>
+    <% @locations.each do |location| %>
+      <li><%= location['campus_name'] %></li>
+    <% end %>
+  </ul>
+      <h2>Insert New Campus</h2>
+      <form action="/locations" method="post">
+        <input type="text" name="campus" placeholder="Campus">
+        <input type="text" name="campus_abbr" placeholder="Campus Abbreviation">
+        <button type="submit">Save</button>
+      </form>
+</body>
+</html>
